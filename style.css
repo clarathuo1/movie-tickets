@@ -48,16 +48,4 @@ body {
   background-color: #3e8e41;
 }
 
-#sold-out-ticket-btn {
-  background-color: green;
-  color:white;
-  padding: 10px 20px;
-  border:none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#sold-out-ticket-btn:hover {
-  background-color: #3e8e41;
-}
 

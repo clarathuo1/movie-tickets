@@ -1,8 +1,8 @@
-const apiUrl = 'http://localhost:3000/films';
+const apiUrl = 'http://localhost:3000';
 
 document.addEventListener('DOMContentLoaded', () => {
   fetchFilms();
-  fetchFilmDetails(1);
+  fetchFilmDetails(1); // Assuming you want to initially load details for film with id=1
 });
 
 function fetchFilms() {
@@ -10,20 +10,26 @@ function fetchFilms() {
     .then(response => response.json())
     .then(films => {
       const filmList = document.getElementById('films-list');
+      filmList.innerHTML = ''; // Clear existing items if any
       films.forEach(film => {
         const filmItem = document.createElement('li');
         filmItem.textContent = film.title;
         filmItem.className = 'film item';
         filmList.appendChild(filmItem);
+        filmItem.addEventListener('click', () => {
+          fetchFilmDetails(film.id);
+        });
       });
-    });
+    })
+    .catch(error => console.error('Error fetching films:', error));
 }
+
 function fetchFilmDetails() {
-  fetch(`http://localhost:3000/films`)
+  fetch(`http://localhost:3000/films/1`)
     .then(response => response.json())
     .then(data => {
       const movieDetails = document.getElementById('movie-details');
-      movieDetails.innerHTML = '';
+      movieDetails.innerHTML = ''; // Clear existing details
       const img = document.createElement('img');
       img.src = data.poster;
       movieDetails.appendChild(img);
@@ -39,41 +45,31 @@ function fetchFilmDetails() {
       const p3 = document.createElement('p');
       p3.textContent = `Available tickets: ${data.capacity - data.tickets_sold}`;
       movieDetails.appendChild(p3);
-      const button = document.createElement('button');
-      button.textContent = 'Buy Ticket';
-      button.addEventListener('click', () => {
-        buyTicket(1);
+      
+      const buyTicketBtn = document.createElement('button');
+      buyTicketBtn.textContent = (data.tickets_sold < data.capacity) ? 'Buy Ticket' : 'Sold Out';
+      buyTicketBtn.id = 'buy-ticket-btn'; // Ensure button has an id for event listener
+      buyTicketBtn.addEventListener('click', () => {
+        buyTicket(data);
       });
-      movieDetails.appendChild(button);
-    });
+      movieDetails.appendChild(buyTicketBtn);
+    })
+    .catch(error => console.error('Error fetching film details:', error));
 }
 
-function buyTicket(id) {
-  fetch(`http://localhost:3000/films`)
-    .then(response => response.json())
-    .then(data => {
-      console.log('Current data:', data);
-      const newTicketsSold = data.tickets_sold + 1;
-      fetch(`http://localhost:3000/films`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ tickets_sold: newTicketsSold })
-      })
-        .then(response => response.json())
-        .then(updatedData => {
-          console.log('Updated data:', updatedData);
-          const availableTickets = updatedData.capacity - updatedData.tickets_sold;
-          console.log('Available tickets:', availableTickets);
-          if (availableTickets > 0) {
-            document.getElementById('movie-details').querySelector('p:nth-child(3)').textContent = `Available tickets: ${availableTickets}`;
-          } else {
-            document.getElementById('movie-details').querySelector('button').textContent = 'Sold Out';
-            document.getElementById('films').querySelector(`li:contains(${updatedData.title})`).classList.add('sold-out');
-          }
-        })
-        .catch(error => console.error('Error updating tickets:', error));
-    })
-    .catch(error => console.error('Error fetching film data:', error));
+function buyTicket(film) {
+  const updatedTicketsSold = film.tickets_sold + 1;
+  film.tickets_sold = updatedTicketsSold;
+  
+  const availableTicketsElement = document.getElementById('available-tickets');
+  const availableTicketsCountElement = document.getElementById('available-tickets-count');
+  availableTicketsCountElement.textContent = film.capacity - updatedTicketsSold;
+  
+  const buyTicketBtn = document.getElementById('buy-ticket-btn');
+  buyTicketBtn.textContent = (updatedTicketsSold < film.capacity) ? 'Buy Ticket' : 'Sold Out';
+  if (updatedTicketsSold === film.capacity) {
+    buyTicketBtn.disabled = true;
+    buyTicketBtn.classList.add('sold-out'); // Optionally, add a class for styling
+  }
 }
+

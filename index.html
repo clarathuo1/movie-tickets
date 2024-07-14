@@ -32,15 +32,15 @@
 
             </ul>
         </section>
-        <section id="movie-details">
+        <div id="movie-details">
             <h2 id="movie-title">The Giant Gila Monster</h2>
             <img id="movie-poster" src="https://www.gstatic.com/tv/thumb/v22vodart/2157/p2157_v_v8_ab.jpg" alt="Movie Poster">
-            <p id="movie-runtime">Movie Runtime : 108 minutes</p>
-            <p id="movie-showtime">Movie Showtime : 04:00PM</p>
-            <p id="movie-available-tickets">Available Tickets : 3</p>
-            <button id="buy-ticket-btn">Buy Ticket</button>
-            <button id="sold-out-ticket-btn">Sold Out</button>
-        </section>
+            <p>Runtime: <span id="runtime"></span> 108 minutes</p>
+            <p>Showtime: <span id="showtime"></span>04:00PM</p>
+            <p id="available-tickets">Available tickets:<span id="available-tickets-count">3</span></p>
+            <button id="buy-ticket">Buy Ticket</button>
+        </div>
+
     </main>
     <script src="script.js"></script>
 </body>
