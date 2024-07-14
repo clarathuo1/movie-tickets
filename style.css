@@ -1,0 +1,63 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color:blue ;
+}
+
+#films {
+  float: right;
+  width: 20%;
+}
+
+#films-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#films-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#films-list li:hover {
+  background-color: #f0f0f0;
+}
+
+#movie-details {
+  float:right;
+  width: 80%;
+}
+
+#movie-poster {
+  width: 100px;
+  height: 150px;
+  margin: 20px;
+}
+
+#buy-ticket-btn {
+  background-color:green;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#buy-ticket-btn:hover {
+  background-color: #3e8e41;
+}
+
+#sold-out-ticket-btn {
+  background-color: green;
+  color:white;
+  padding: 10px 20px;
+  border:none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#sold-out-ticket-btn:hover {
+  background-color: #3e8e41;
+}
+
