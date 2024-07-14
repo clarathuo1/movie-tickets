@@ -18,8 +18,7 @@ function fetchFilms() {
       });
     });
 }
-
-function fetchFilmDetails() {
+function fetchFilmDetails(id) {
   fetch(`http://localhost:3000/films/1`)
     .then(response => response.json())
     .then(data => {
@@ -50,21 +49,26 @@ function fetchFilmDetails() {
 }
 
 function buyTicket(id) {
-  fetch(`http://localhost:3000/films/1`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ tickets_sold: 1 })
-  })
+  fetch(`http://localhost:3000/films/1`)
     .then(response => response.json())
     .then(data => {
-      const availableTickets = data.capacity - data.tickets_sold;
-      if (availableTickets > 0) {
-        document.getElementById('movie-details').querySelector('p:nth-child(3)').textContent = `Available tickets: ${availableTickets}`;
-      } else {
-        document.getElementById('movie-details').querySelector('button').textContent = 'Sold Out';
-        document.getElementById('films').querySelector(`li:contains(${data.title})`).classList.add('sold-out');
-      }
+      const newTicketsSold = data.tickets_sold + 1;
+      fetch(`http://localhost:3000/films/1`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ tickets_sold: newTicketsSold })
+      })
+        .then(response => response.json())
+        .then(updatedData => {
+          const availableTickets = updatedData.capacity - updatedData.tickets_sold;
+          if (availableTickets > 0) {
+            document.getElementById('movie-details').querySelector('p:nth-child(3)').textContent = `Available tickets: ${availableTickets}`;
+          } else {
+            document.getElementById('movie-details').querySelector('button').textContent = 'Sold Out';
+            document.getElementById('films').querySelector(`li:contains(${updatedData.title})`).classList.add('sold-out');
+          }
+        });
     });
-}
+   }
