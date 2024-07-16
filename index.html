@@ -1,47 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flatdango</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>Flatdango Movie Ticketing Web App
-        </h1>
-    </header>
-    <main>
-        <section id="films">
-            <ul id="films-list">
-                <li class="film item">The Giant Gila Monster</li>
-  <li class="film item">Manos: The Hands Of Fate</li>
-  <li class="film item">Time Chasers</li>
-  <li class="film item">The Touch Of Satan</li>
-  <li class="film item">Santa Claus Conquers The Martians</li>
-  <li class="film item">Track Of The Moon Beast</li>
-  <li class="film item">The Skydivers</li>
-  <li class="film item">The Killer Shrews</li>
-  <li class="film item">Project Moon Base</li>
-  <li class="film item">The Giant Spider Invasion</li>
-  <li class="film item">Catalina Caper</li>
-  <li class="film item">Secret Agent Super Dragon</li>
-  <li class="film item">Wild Rebels</li>
-  <li class="film item">Danger:Diabolic</li>
-  <li class="film item">Village of the Giants</li>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Flatiron Movie Theatre</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  </head>
+  <body>
+    
+    <div class="heading">
+      <div class="item">
+        <h2 class="ui header">
+          <i class="green ticket icon"></i>
+          <div class="content">FLATDANGO.</div>
+          <div class="sub header" id="subtitle">BUY MOVIE TICKETS</div>
+        </h2>
+      </div>
+    </div>
 
-            </ul>
-        </section>
-        <div id="movie-details">
-            <h2 id="movie-title">The Giant Gila Monster</h2>
-            <img id="movie-poster" src="https://www.gstatic.com/tv/thumb/v22vodart/2157/p2157_v_v8_ab.jpg" alt="Movie Poster">
-            <p>Runtime: <span id="runtime"></span> 108 minutes</p>
-            <p>Showtime: <span id="showtime"></span>04:00PM</p>
-            <p id="available-tickets">Available tickets:<span id="available-tickets-count">3</span></p>
-            <button id="buy-ticket">Buy Ticket</button>
+    <div class="ui centered grid">
+      <div class="four wide column">
+        <div class="list-container">
+          
+          <ul class="ui divided list" id="films">
+            <li class="film item">Movie titles will go here.</li>
+          </ul>
         </div>
+      </div>
 
-    </main>
-    <script src="script.js"></script>
-</body>
+      
+      
+
+      
+      <div class="four wide column">
+        <div class="ui cards" id="showing">
+          <div class="card">
+            <div id="title" class="title">[MOVIE TITLE]</div>
+            <div id="runtime" class="meta">[RUNTIME] minutes</div>
+            <div class="content">
+              <div class="description">
+                <div id="film-info">[INSERT MOVIE DESCRIPTION HERE]</div>
+                <span id="showtime" class="ui label">[SHOWTIME]</span>
+                <span id="ticket-num">[X]</span> remaining tickets
+              </div>
+            </div>
+            <div class="extra content">
+              <button id="buy-ticket" class="ui orange button">
+                Buy Ticket
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="four wide column">
+        <img
+          id="poster"
+          src="assets/placeholderImage.png"
+          alt="[MOVIE TITLE]"
+        />
+      </div>
+    </div>
+    <script src="script/script.js"></script>
+  </body>
 </html>
